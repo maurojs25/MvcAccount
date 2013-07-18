@@ -192,7 +192,7 @@ namespace MvcAccount.Web.Security {
       }
 
       /// <summary>
-      /// This method always throws a <see cref="NotImplementedException"/>.
+      /// Adds a new user to the data store.
       /// </summary>
       /// <param name="username">The user name for the new user.</param>
       /// <param name="password">The password for the new user.</param>
@@ -210,7 +210,17 @@ namespace MvcAccount.Web.Security {
       /// for the newly created user.
       /// </returns>
       public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
-         throw new NotImplementedException("CreateUser not implemented.");
+         var repo = GetRepositoryInstance();
+
+         UserWrapper user = repo.CreateUser(username, password, email, passwordQuestion, passwordAnswer, isApproved, providerUserKey, out status);
+
+         if (user == null)
+         {
+             status = MembershipCreateStatus.ProviderError;
+             return null;
+         }
+
+         return CreateMembershipUser(this.Name, user);
       }
 
       /// <summary>

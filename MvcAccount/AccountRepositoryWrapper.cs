@@ -27,6 +27,16 @@ namespace MvcAccount {
          this.repo = repo;
       }
 
+      public UserWrapper CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out System.Web.Security.MembershipCreateStatus status) {
+
+          object user = this.repo.CreateUser(username, password, email, passwordQuestion, passwordAnswer, isApproved, providerUserKey, out status);
+
+          if (user == null)
+              return null;
+
+          return new UserWrapper(user);
+      }
+
       public UserWrapper FindUserById(object id) {
 
          object user = this.repo.FindUserById(id);

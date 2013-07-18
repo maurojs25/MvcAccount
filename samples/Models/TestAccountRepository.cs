@@ -12,6 +12,11 @@ namespace Samples.Models {
          new User { Id = 1, Username = "demo", Password = "demo", Email = "demo@example.com" }
       };
 
+      public override object CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out System.Web.Security.MembershipCreateStatus status)
+      {
+         throw new NotImplementedException();
+      }
+
       public override object FindUserById(object id) {
          return users.SingleOrDefault(u => u.Id == Convert.ToInt32(id));
       }

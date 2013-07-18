@@ -24,6 +24,20 @@ namespace MvcAccount {
    /// </summary>
    public abstract class AccountRepository {
 
+       /// <summary>
+       /// Adds a new user to the data store.
+       /// </summary>
+       /// <param name="username">The user name for the new user.</param>
+       /// <param name="password">The password for the new user.</param>
+       /// <param name="email">The e-mail address for the new user.</param>
+       /// <param name="passwordQuestion">The password-question value for the membership user.</param>
+       /// <param name="passwordAnswer">The password-answer value for the membership user.</param>
+       /// <param name="isApproved">A <see cref="System.Boolean"/> that indicates whether the new user is approved to log on.</param>
+       /// <param name="providerUserKey">The user identifier for the user that should be stored in the membership data store.</param>
+       /// <param name="status">A <see cref="System.Web.Security.MembershipCreateStatus"/> indicating that the user was created successfully or the reason creation failed.</param>
+       /// <returns>A <see cref="System.Web.Security.MembershipUser"/> object for the newly created user. If no user was created, this method returns null.</returns>
+       public abstract object CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out System.Web.Security.MembershipCreateStatus status);
+
       /// <summary>
       /// Gets the user that matches the provided unique identifier.
       /// Note to Implementers: <paramref name="id"/> can be provided as a <see cref="String"/>,
