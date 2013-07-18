@@ -77,11 +77,15 @@ namespace MvcAccount {
       /// otherwise, false.
       /// </param>
       /// <param name="strCookiePath">The <see cref="HttpCookie.Path"/> of the authentication cookie.</param>
+      /// <param name="customData">
+      /// The user-specific data to be stored with the ticket.
+      /// This data is to be provided by a custom override method.
+      /// </param>
       /// <returns>
       /// An <see cref="HttpCookie"/> that contains encrypted forms-authentication ticket
       /// information.
       /// </returns>
-      public virtual HttpCookie GetAuthCookie(string userName, bool createPersistentCookie, string strCookiePath) {
+      public virtual HttpCookie GetAuthCookie(string userName, bool createPersistentCookie, string strCookiePath, string customData = "") {
 
          DateTime utcNow = DateTime.UtcNow;
          TimeSpan persistentTimeout = this.Configuration.PersistentCookieTimeout;
@@ -98,7 +102,7 @@ namespace MvcAccount {
             issueDate: utcNow,
             expiration: expirationUtc,
             isPersistent: createPersistentCookie,
-            userData: ""
+            userData: customData
          );
 
          string encryptedTicket = FormsAuthentication.Encrypt(ticket);
